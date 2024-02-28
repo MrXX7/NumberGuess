@@ -9,19 +9,25 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var guess = ""
-    @State private var feedback = ""
+    @State private var feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
     let target = String(format: "%04d", Int.random(in: 0..<10000))
     
     var body: some View {
         VStack {
-            Text("Tahmin ettiğim 4 haneli sayıyı gir:")
-            TextField("Tahmin", text: $guess)
+            Text("Enter the 4-digit number you guessed:")
+            TextField("Guess", text: $guess)
                 .padding()
                 .keyboardType(.numberPad)
-            Button("Tahmin Et") {
+            Button("Guess") {
                 checkGuess()
             }
-            Text(feedback)
+            HStack {
+                ForEach(feedback, id: \.self) { color in
+                    Circle()
+                        .fill(color)
+                        .frame(width: 30, height: 30)
+                }
+            }
         }
         .padding()
     }
@@ -35,15 +41,13 @@ struct ContentView: View {
         for i in 0..<4 {
             if guessArray[i] == targetArray[i] {
                 reds += 1
+                feedback[i] = Color.green
             } else if targetArray.contains(guessArray[i]) {
                 yellows += 1
+                feedback[i] = Color.yellow
+            } else {
+                feedback[i] = Color.red
             }
-        }
-        
-        if reds == 4 {
-            feedback = "Tebrikler! Doğru tahmin ettiniz."
-        } else {
-            feedback = "Kırmızı: \(reds), Sarı: \(yellows)"
         }
     }
 }
@@ -53,4 +57,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
 
