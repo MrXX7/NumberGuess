@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var guess = ""
     @State private var feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
-    let target = String(format: "%04d", Int.random(in: 0..<10000))
+    @State private var target = String(format: "%04d", Int.random(in: 0..<10000))
     
     var body: some View {
         VStack {
@@ -22,6 +22,9 @@ struct ContentView: View {
                 .keyboardType(.numberPad)
             Button("Guess") {
                 checkGuess()
+            }
+            Button("Reset") {
+                resetGame()
             }
             HStack {
                 ForEach(feedback, id: \.self) { color in
@@ -51,6 +54,12 @@ struct ContentView: View {
                 feedback[i] = Color.red
             }
         }
+    }
+    
+    func resetGame() {
+        guess = ""
+        feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
+        target = String(format: "%04d", Int.random(in: 0..<10000))
     }
 }
 
