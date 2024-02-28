@@ -15,8 +15,10 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("Enter the 4-digit number you guessed:")
+                .font(.headline)
             TextField("Guess", text: $guess)
                 .padding()
+                .font(.title)
                 .keyboardType(.numberPad)
             Button("Guess") {
                 checkGuess()
@@ -25,7 +27,7 @@ struct ContentView: View {
                 ForEach(feedback, id: \.self) { color in
                     Circle()
                         .fill(color)
-                        .frame(width: 30, height: 30)
+                        .frame(width: 40, height: 40)
                 }
             }
         }
