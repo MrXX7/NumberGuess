@@ -12,7 +12,8 @@ struct ContentView: View {
     @State private var feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
     @State private var target = String(format: "%04d", Int.random(in: 0..<10000))
     @State private var animate = false
-    
+    @State private var remainingAttempts = 6 // Kullanıcının kalan deneme hakkı
+
     var body: some View {
         VStack {
             Text("Enter the 4-digit number you guessed:")
@@ -24,6 +25,10 @@ struct ContentView: View {
             Button("Guess") {
                 withAnimation {
                     checkGuess()
+                    remainingAttempts -= 1 // Her tahminde kalan hakkı azalt
+                    if remainingAttempts == 0 { // Eğer kalan hak kalmadıysa resetGame() fonksiyonunu çağır
+                        resetGame()
+                    }
                 }
             }
             Button("Reset") {
@@ -31,6 +36,9 @@ struct ContentView: View {
                     resetGame()
                 }
             }
+            Text("Remaining Attempts: \(remainingAttempts)") // Kalan deneme hakkını göster
+                .font(.headline)
+                .padding(.top, 10)
             HStack {
                 ForEach(feedback, id: \.self) { color in
                     Circle()
@@ -43,6 +51,11 @@ struct ContentView: View {
             if feedback.allSatisfy({ $0 == Color.green }) {
                 Text("Congratulations! You guessed it right.")
                     .foregroundColor(.green)
+                    .font(.headline)
+                    .padding()
+            } else if remainingAttempts == 0 {
+                Text("You've used all your attempts. The correct answer was \(target).")
+                    .foregroundColor(.red)
                     .font(.headline)
                     .padding()
             }
@@ -76,6 +89,7 @@ struct ContentView: View {
         guess = ""
         feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
         target = String(format: "%04d", Int.random(in: 0..<10000))
+        remainingAttempts = 6 // Oyun sıfırlandığında deneme hakkını tekrar 6 yap
     }
 }
 
@@ -84,6 +98,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
 
 
 
