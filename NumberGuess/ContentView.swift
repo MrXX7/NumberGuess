@@ -13,62 +13,74 @@ struct ContentView: View {
     @State private var target = String(format: "%04d", Int.random(in: 0..<10000))
     @State private var animate = false
     @State private var remainingAttempts = 6 // Kullanıcının kalan deneme hakkı
-
+    
     var body: some View {
-        VStack {
-            Text("Enter the 4-digit number you guessed:")
-                .font(.headline)
-            TextField("Guess", text: $guess)
-                .padding()
-                .font(.title)
-                .keyboardType(.decimalPad)
-                .onReceive(guess.publisher.collect()) { // Kullanıcının girdisi doğrulamak için
-                    let filtered = $0.filter { "0123456789".contains($0) } // Sadece rakamları kabul et
-                    if filtered.count > 4 { // Sadece 4 rakam kabul edelim
-                        self.guess = String(filtered.prefix(4))
-                    } else {
-                        self.guess = String(filtered)
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .top, endPoint: .bottom) // Arka planı görsel bir geçişle değiştir
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                Text("Guess the 4-digit number:")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.top, 50)
+                
+                HStack {
+                    ForEach(feedback, id: \.self) { color in
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(color)
+                            .frame(width: 50, height: 50)
+                            .padding(5)
+                            .scaleEffect(animate ? 1.1 : 1.2)
+                            .animation(.easeInOut(duration: 0.5))
                     }
                 }
-            Button("Guess") {
-                withAnimation {
-                    checkGuess()
-                    remainingAttempts -= 1 // Her tahminde kalan hakkı azalt
-                    if remainingAttempts == 0 { // Eğer kalan hak 0 ise resetGame() fonksiyonunu çağır
-                        resetGame()
+                
+                TextField("Enter your guess", text: $guess)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 50)
+                
+                HStack(spacing: 20) {
+                    Button("Guess") {
+                        withAnimation {
+                            checkGuess()
+                            remainingAttempts -= 1
+                        }
                     }
+                    .buttonStyle(CustomButtonStyle())
+                    
+                    Button("Reset") {
+                        withAnimation {
+                            resetGame()
+                        }
+                    }
+                    .buttonStyle(CustomButtonStyle())
                 }
-            }
-            Button("Reset") {
-                withAnimation {
-                    resetGame()
-                }
-            }
-            Text("Remaining Attempts: \(remainingAttempts)") // Kalan deneme hakkını göster
-                .font(.headline)
-                .padding(.top, 10)
-            HStack {
-                ForEach(feedback, id: \.self) { color in
-                    Circle()
-                        .fill(color)
-                        .frame(width: 40, height: 40)
-                        .scaleEffect(animate ? 1.2 : 1.0)
-                        .animation(.easeInOut(duration: 0.5))
-                }
-            }
-            if feedback.allSatisfy({ $0 == Color.green }) {
-                Text("Congratulations! You guessed it right.")
-                    .foregroundColor(.green)
+                .padding(.top, 20)
+                
+                Text("Remaining Attempts: \(remainingAttempts)")
                     .font(.headline)
-                    .padding()
-            } else if remainingAttempts == 0 {
-                Text("You've used all your attempts. The correct answer was \(target).")
-                    .foregroundColor(.red)
-                    .font(.headline)
-                    .padding()
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+                
+                if feedback.allSatisfy({ $0 == Color.green }) {
+                    Text("Congratulations! You guessed it right.")
+                        .font(.headline)
+                        .foregroundColor(.green)
+                        .padding(.top, 20)
+                } else if remainingAttempts == 0 {
+                    Text("You've used all your attempts. The correct answer was \(target).")
+                        .font(.headline)
+                        .foregroundColor(.red)
+                        .padding(.top, 20)
+                }
+                
+                Spacer()
             }
         }
-        .padding()
         .onAppear {
             animate = true
         }
@@ -97,7 +109,17 @@ struct ContentView: View {
         guess = ""
         feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
         target = String(format: "%04d", Int.random(in: 0..<10000))
-        remainingAttempts = 6 // Oyun sıfırlandığında deneme hakkını tekrar 6 yap
+        remainingAttempts = 6
+    }
+}
+
+struct CustomButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .padding()
+            .foregroundColor(.white)
+            .background(configuration.isPressed ? Color.gray : Color.blue)
+            .cornerRadius(10)
     }
 }
 
@@ -106,6 +128,8 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
 
 
 
