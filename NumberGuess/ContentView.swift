@@ -21,12 +21,20 @@ struct ContentView: View {
             TextField("Guess", text: $guess)
                 .padding()
                 .font(.title)
-                .keyboardType(.numberPad)
+                .keyboardType(.decimalPad)
+                .onReceive(guess.publisher.collect()) { // Kullanıcının girdisi doğrulamak için
+                    let filtered = $0.filter { "0123456789".contains($0) } // Sadece rakamları kabul et
+                    if filtered.count > 4 { // Sadece 4 rakam kabul edelim
+                        self.guess = String(filtered.prefix(4))
+                    } else {
+                        self.guess = String(filtered)
+                    }
+                }
             Button("Guess") {
                 withAnimation {
                     checkGuess()
                     remainingAttempts -= 1 // Her tahminde kalan hakkı azalt
-                    if remainingAttempts == 0 { // Eğer kalan hak kalmadıysa resetGame() fonksiyonunu çağır
+                    if remainingAttempts == 0 { // Eğer kalan hak 0 ise resetGame() fonksiyonunu çağır
                         resetGame()
                     }
                 }
@@ -98,6 +106,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
 
 
 
