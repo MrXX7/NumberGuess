@@ -36,8 +36,10 @@ func checkGuess(guess: String, target: String, feedback: inout [Color]) {
 func feedbackCircles(feedback: [Color], animate: Bool) -> some View {
     HStack {
         ForEach(feedback, id: \.self) { color in
+            let fillColor = color != .gray ? color : color.opacity(0.5) // Gri olan renklerin arka planı saydam olacak
+            
             RoundedRectangle(cornerRadius: 10)
-                .fill(color)
+                .fill(fillColor)
                 .frame(width: 50, height: 50)
                 .padding(5)
                 .scaleEffect(animate ? 1.1 : 1.2)
@@ -45,6 +47,7 @@ func feedbackCircles(feedback: [Color], animate: Bool) -> some View {
         }
     }
 }
+
 
 struct CustomButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {

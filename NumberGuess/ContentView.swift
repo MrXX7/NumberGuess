@@ -28,26 +28,7 @@ struct ContentView: View {
                 
                 feedbackCircles(feedback: feedback, animate: animate)
                 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color.white)
-                        .frame(height: 50)
-                        .padding()
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                    
-                    HStack {
-                        Image(systemName: "number")
-                            .foregroundColor(.blue) // Metin rengini mavi yap
-                            .padding(.leading, 20) // İkonu sola yasla
-                        TextField("Enter your guess", text: $guess)
-                            .padding(.horizontal)
-                            .font(.title) // Metni daha büyük yap
-                            .foregroundColor(.black) // Metin rengini siyah yap
-                    }
-                }
-                .padding(.horizontal, 50)
-
-                
+                TextFieldWithIcon(guess: $guess)
                 
                 HStack(spacing: 20) {
                     Button("Guess") {
@@ -74,10 +55,11 @@ struct ContentView: View {
                     .padding(.top, 20)
                 
                 if feedback.allSatisfy({ $0 == Color.green }) {
-                    Text("Congratulations! You guessed it right.")
-                        .font(.largeTitle)
+                    Text("Congratulations! 🎉")
+                        .font(.headline)
                         .foregroundColor(.white)
                         .padding(.top, 20)
+
                 } else if remainingAttempts == 0 {
                     Text("You've used all your attempts. The correct answer was \(target).")
                         .font(.title)
