@@ -37,11 +37,16 @@ struct ContentView: View {
                 }
                 
                 TextField("Enter your guess", text: $guess)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    .frame(height: 50)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.white)
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2) // Gölgelendirme ekleyerek yükseltme
+                    )
                     .padding(.horizontal, 50)
+
                 
                 HStack(spacing: 20) {
                     Button("Guess") {
@@ -54,7 +59,7 @@ struct ContentView: View {
                     
                     Button("Reset") {
                         withAnimation {
-                            resetGame()
+                            resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
                         }
                     }
                     .buttonStyle(CustomButtonStyle())
@@ -68,13 +73,13 @@ struct ContentView: View {
                 
                 if feedback.allSatisfy({ $0 == Color.green }) {
                     Text("Congratulations! You guessed it right.")
-                        .font(.headline)
-                        .foregroundColor(.green)
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
                         .padding(.top, 20)
                 } else if remainingAttempts == 0 {
                     Text("You've used all your attempts. The correct answer was \(target).")
-                        .font(.headline)
-                        .foregroundColor(.red)
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
                         .padding(.top, 20)
                 }
                 
@@ -104,14 +109,7 @@ struct ContentView: View {
             }
         }
     }
-    
-    func resetGame() {
-        guess = ""
-        feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
-        target = String(format: "%04d", Int.random(in: 0..<10000))
-        remainingAttempts = 6
     }
-}
 
 struct CustomButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {

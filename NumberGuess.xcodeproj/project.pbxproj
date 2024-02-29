@@ -11,6 +11,7 @@
 		ADDE536B2B8EB52B003B2F63 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDE536A2B8EB52B003B2F63 /* ContentView.swift */; };
 		ADDE536D2B8EB52E003B2F63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADDE536C2B8EB52E003B2F63 /* Assets.xcassets */; };
 		ADDE53712B8EB52E003B2F63 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADDE53702B8EB52E003B2F63 /* Preview Assets.xcassets */; };
+		ADF907412B911B2B00AF0D8E /* GameFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF907402B911B2B00AF0D8E /* GameFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		ADDE536C2B8EB52E003B2F63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADDE536E2B8EB52E003B2F63 /* NumberGuess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NumberGuess.entitlements; sourceTree = "<group>"; };
 		ADDE53702B8EB52E003B2F63 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ADF907402B911B2B00AF0D8E /* GameFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				ADDE53682B8EB52B003B2F63 /* NumberGuessApp.swift */,
 				ADDE536A2B8EB52B003B2F63 /* ContentView.swift */,
+				ADF907402B911B2B00AF0D8E /* GameFunctions.swift */,
 				ADDE536C2B8EB52E003B2F63 /* Assets.xcassets */,
 				ADDE536E2B8EB52E003B2F63 /* NumberGuess.entitlements */,
 				ADDE536F2B8EB52E003B2F63 /* Preview Content */,
@@ -141,6 +144,7 @@
 			files = (
 				ADDE536B2B8EB52B003B2F63 /* ContentView.swift in Sources */,
 				ADDE53692B8EB52B003B2F63 /* NumberGuessApp.swift in Sources */,
+				ADF907412B911B2B00AF0D8E /* GameFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
