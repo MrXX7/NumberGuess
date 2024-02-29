@@ -55,6 +55,8 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .padding(.top, 20)
                 
+                Spacer()
+                
                 if feedback.allSatisfy({ $0 == Color.green }) {
                     Text("Congratulations! 🎉")
                         .font(.largeTitle)
@@ -69,6 +71,11 @@ struct ContentView: View {
                 }
                 
                 Spacer()
+                
+                Text("© 2024 by Oncu Can. All rights reserved.")
+                    .font(.footnote)
+                    .foregroundColor(.white)
+                    .padding()
             }
         }
         .onAppear {
@@ -76,6 +83,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

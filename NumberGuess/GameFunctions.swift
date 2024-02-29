@@ -40,17 +40,18 @@ func feedbackCircles(feedback: [Color], guessedNumbers: [Int]) -> some View {
             let number = guessedNumbers.indices.contains(index) ? guessedNumbers[index] : nil // Eğer girilen numaraların indeksi mevcut ise, numarayı al. Yoksa nil yap.
             
             RoundedRectangle(cornerRadius: 10)
-                .fill(color)
+                .fill(color != .gray ? color : color.opacity(0.5)) // Gri olan renklerin arka planı saydam olacak
                 .overlay(
                     Text(number != nil ? String(number!) : "") // Eğer numara mevcutsa, hücreye numarayı yaz. Değilse boş bırak.
                         .foregroundColor(.white)
-                        .font(.headline)
+                        .font(.largeTitle)
                 )
                 .frame(width: 50, height: 50)
                 .padding(5)
         }
     }
 }
+
 
 
 
