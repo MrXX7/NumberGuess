@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var guess = ""
     @State private var feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
     @State private var target = String(format: "%04d", Int.random(in: 0..<10000))
+    @State private var animate = false
     
     var body: some View {
         VStack {
@@ -21,20 +22,35 @@ struct ContentView: View {
                 .font(.title)
                 .keyboardType(.numberPad)
             Button("Guess") {
-                checkGuess()
+                withAnimation {
+                    checkGuess()
+                }
             }
             Button("Reset") {
-                resetGame()
+                withAnimation {
+                    resetGame()
+                }
             }
             HStack {
                 ForEach(feedback, id: \.self) { color in
                     Circle()
                         .fill(color)
                         .frame(width: 40, height: 40)
+                        .scaleEffect(animate ? 1.2 : 1.0)
+                        .animation(.easeInOut(duration: 0.5))
                 }
+            }
+            if feedback.allSatisfy({ $0 == Color.green }) {
+                Text("Congratulations! You guessed it right.")
+                    .foregroundColor(.green)
+                    .font(.headline)
+                    .padding()
             }
         }
         .padding()
+        .onAppear {
+            animate = true
+        }
     }
     
     func checkGuess() {
@@ -68,6 +84,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
 
 
 
