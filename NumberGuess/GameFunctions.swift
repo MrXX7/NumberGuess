@@ -33,20 +33,26 @@ func checkGuess(guess: String, target: String, feedback: inout [Color]) {
     }
 }
 
-func feedbackCircles(feedback: [Color], animate: Bool) -> some View {
+func feedbackCircles(feedback: [Color], guessedNumbers: [Int]) -> some View {
     HStack {
-        ForEach(feedback, id: \.self) { color in
-            let fillColor = color != .gray ? color : color.opacity(0.5) // Gri olan renklerin arka planı saydam olacak
+        ForEach(feedback.indices, id: \.self) { index in
+            let color = feedback[index]
+            let number = guessedNumbers.indices.contains(index) ? guessedNumbers[index] : nil // Eğer girilen numaraların indeksi mevcut ise, numarayı al. Yoksa nil yap.
             
             RoundedRectangle(cornerRadius: 10)
-                .fill(fillColor)
+                .fill(color)
+                .overlay(
+                    Text(number != nil ? String(number!) : "") // Eğer numara mevcutsa, hücreye numarayı yaz. Değilse boş bırak.
+                        .foregroundColor(.white)
+                        .font(.headline)
+                )
                 .frame(width: 50, height: 50)
                 .padding(5)
-                .scaleEffect(animate ? 1.1 : 1.2)
-                .animation(.easeInOut(duration: 0.5))
         }
     }
 }
+
+
 
 
 struct CustomButtonStyle: ButtonStyle {

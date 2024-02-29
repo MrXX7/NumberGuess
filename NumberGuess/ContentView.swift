@@ -26,7 +26,8 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .padding(.top, 50)
                 
-                feedbackCircles(feedback: feedback, animate: animate)
+                feedbackCircles(feedback: feedback, guessedNumbers: Array(guess).compactMap { Int(String($0)) })
+
                 
                 TextFieldWithIcon(guess: $guess)
                 
@@ -56,7 +57,7 @@ struct ContentView: View {
                 
                 if feedback.allSatisfy({ $0 == Color.green }) {
                     Text("Congratulations! 🎉")
-                        .font(.headline)
+                        .font(.largeTitle)
                         .foregroundColor(.white)
                         .padding(.top, 20)
 
