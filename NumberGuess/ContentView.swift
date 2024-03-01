@@ -11,7 +11,6 @@ struct ContentView: View {
     @State private var guess = ""
     @State private var feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
     @State private var target = String(format: "%04d", Int.random(in: 0..<10000))
-    @State private var animate = false
     @State private var remainingAttempts = 6 // Kullanıcının kalan deneme hakkı
     
     var body: some View {
@@ -27,10 +26,9 @@ struct ContentView: View {
                     .padding(.top, 50)
                 
                 feedbackCircles(feedback: feedback, guessedNumbers: Array(guess).compactMap { Int(String($0)) })
+                
+                TextFieldWithIcon(guess: $guess, feedback: $feedback)
 
-                
-                TextFieldWithIcon(guess: $guess)
-                
                 HStack(spacing: 20) {
                     Button("Guess") {
                         withAnimation {
@@ -78,11 +76,9 @@ struct ContentView: View {
                     .padding()
             }
         }
-        .onAppear {
-            animate = true
-        }
     }
 }
+
 
 
 struct ContentView_Previews: PreviewProvider {

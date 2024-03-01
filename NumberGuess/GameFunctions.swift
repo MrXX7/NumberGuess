@@ -14,6 +14,7 @@ func resetGame(guess: inout String, feedback: inout [Color], target: inout Strin
     remainingAttempts = 6
 }
 
+
 func checkGuess(guess: String, target: String, feedback: inout [Color]) {
     var reds = 0
     var yellows = 0
@@ -30,6 +31,11 @@ func checkGuess(guess: String, target: String, feedback: inout [Color]) {
         } else {
             feedback[i] = Color.red
         }
+    }
+    
+    // Tahmin yapılmadan önce geri bildirimi sıfırla
+    if guessArray.count < 4 {
+        feedback = Array(repeating: .gray, count: 4)
     }
 }
 
@@ -51,6 +57,7 @@ func feedbackCircles(feedback: [Color], guessedNumbers: [Int]) -> some View {
         }
     }
 }
+
 
 
 
