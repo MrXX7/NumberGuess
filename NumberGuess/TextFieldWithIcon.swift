@@ -27,6 +27,9 @@ struct TextFieldWithIcon: View {
                     .onChange(of: guess) { _ in
                         feedback = Array(repeating: .gray, count: 4)
                     }
+                    .onTapGesture {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
             }
         .padding(.horizontal, 15)
         .background(
