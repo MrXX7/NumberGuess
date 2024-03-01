@@ -12,17 +12,33 @@ struct TextFieldWithIcon: View {
     @Binding var feedback: [Color]
 
     var body: some View {
-        TextField("Enter your guess", text: $guess)
-            .padding(.horizontal)
-            .font(.title)
-            .foregroundColor(.black)
-            .padding(.top, 20)
-            .onChange(of: guess) { _ in
-                // Tahmin yapılmadan önce geri bildirimi sıfırla
-                feedback = Array(repeating: .gray, count: 4)
+        ZStack {
+            HStack {
+                Image(systemName: "number")
+                    .foregroundColor(.gray)
+                    .font(.title)
+                    .padding(.leading, 1)
+                
+                TextField("Enter your guess", text: $guess)
+                    .font(.title2)
+                    .foregroundColor(.black)
+                    .padding(.vertical, 8)
+                    .keyboardType(.numberPad)
+                    .onChange(of: guess) { _ in
+                        feedback = Array(repeating: .gray, count: 4)
+                    }
             }
+        .padding(.horizontal, 15)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white)
+                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+            )}
     }
 }
+
+
+
 
 
 

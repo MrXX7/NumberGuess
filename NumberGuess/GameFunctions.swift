@@ -58,18 +58,12 @@ func feedbackCircles(feedback: [Color], guessedNumbers: [Int]) -> some View {
     }
 }
 
-
-
-
-
-
 struct CustomButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding()
-            .foregroundColor(.white)
-            .background(configuration.isPressed ? Color.gray : Color.blue)
+            .foregroundColor(.black)
+            .background(configuration.isPressed ? Color.gray : Color.yellow) // Altın rengi (gold)
             .cornerRadius(10)
     }
 }
-

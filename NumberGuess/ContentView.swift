@@ -11,11 +11,11 @@ struct ContentView: View {
     @State private var guess = ""
     @State private var feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
     @State private var target = String(format: "%04d", Int.random(in: 0..<10000))
-    @State private var remainingAttempts = 6 // Kullanıcının kalan deneme hakkı
+    @State private var remainingAttempts = 6
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.purple, Color.black]), startPoint: .top, endPoint: .bottom) // Arka planı görsel bir geçişle değiştir
+            LinearGradient(gradient: Gradient(colors: [Color.purple, Color.black]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
@@ -27,9 +27,11 @@ struct ContentView: View {
                 
                 feedbackCircles(feedback: feedback, guessedNumbers: Array(guess).compactMap { Int(String($0)) })
                 
-                TextFieldWithIcon(guess: $guess, feedback: $feedback)
-
-                HStack(spacing: 20) {
+                TextFieldWithIcon(guess: $guess, feedback: $feedback).frame(width: UIScreen.main.bounds.width * 0.65)
+                
+                    .padding(.top, 10)
+                
+                HStack(spacing: 100) {
                     Button("Guess") {
                         withAnimation {
                             checkGuess(guess: guess, target: target, feedback: &feedback)
