@@ -29,7 +29,7 @@ struct TextFieldWithIcon: View {
                     .padding(.horizontal)
                     .font(.title)
                     .foregroundColor(.black)
-                    .focused($isFocused) // TextField'in odak durumunu bağla
+                    .focused($isFocused) 
                     .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
                         if guess.isEmpty || guess.count < previousGuess.count { // Yeni değer boşsa veya öncekinden daha kısa ise (silme işlemi yapıldıysa)
                             animateFeedback = false // Animasyonu kapat

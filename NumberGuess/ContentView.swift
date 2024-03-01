@@ -16,7 +16,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .top, endPoint: .bottom) // Arka planı görsel bir geçişle değiştir
+            LinearGradient(gradient: Gradient(colors: [Color.purple, Color.black]), startPoint: .top, endPoint: .bottom) // Arka planı görsel bir geçişle değiştir
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
