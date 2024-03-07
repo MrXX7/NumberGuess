@@ -14,10 +14,11 @@ func resetGame(guess: inout String, feedback: inout [Color], target: inout Strin
     remainingAttempts = 6
 }
 
-
 func checkGuess(guess: String, target: String, feedback: inout [Color]) {
     var reds = 0
     var yellows = 0
+    var yellowIndices: [Int] = [] // Sarıya dönüştürülen rakamların dizini
+    var correctIndices: [Int] = [] // Doğru konumda olan rakamların dizini
     let guessArray = Array(guess)
     let targetArray = Array(target)
     
@@ -25,10 +26,25 @@ func checkGuess(guess: String, target: String, feedback: inout [Color]) {
         if guessArray[i] == targetArray[i] {
             reds += 1
             feedback[i] = Color.green
-        } else if targetArray.contains(guessArray[i]) {
-            yellows += 1
-            feedback[i] = Color.yellow
-        } else {
+            correctIndices.append(i)
+        }
+    }
+    
+    for i in 0..<4 {
+        if guessArray[i] != targetArray[i] && targetArray.contains(guessArray[i]) {
+            // Rakam doğru konumda işaretlenmiş mi kontrol et
+            let correctIndex = targetArray.firstIndex(of: guessArray[i])!
+            if !correctIndices.contains(correctIndex) && !yellowIndices.contains(i) {
+                yellows += 1
+                feedback[i] = Color.yellow
+                yellowIndices.append(i)
+            }
+        }
+    }
+    
+    // Doğru konumda olmayan ve hedefte bulunmayan her rakamı kırmızıya dönüştür
+    for i in 0..<4 {
+        if !correctIndices.contains(i) && !targetArray.contains(guessArray[i]) {
             feedback[i] = Color.red
         }
     }
@@ -38,6 +54,8 @@ func checkGuess(guess: String, target: String, feedback: inout [Color]) {
         feedback = Array(repeating: .gray, count: 4)
     }
 }
+
+
 
 func feedbackCircles(feedback: [Color], guessedNumbers: [Int]) -> some View {
     HStack {
