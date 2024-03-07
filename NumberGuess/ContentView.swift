@@ -21,7 +21,7 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
-                Text("Guess the 4-digit number:")
+                Text("Crack the Code:")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -52,7 +52,7 @@ struct ContentView: View {
                 }
                 .padding(.top, 20)
                 
-                Text("Remaining Attempts: \(remainingAttempts)")
+                Text("Chances Left: \(remainingAttempts)")
                     .font(.title)
                     .foregroundColor(.white)
                     .padding(.top, 20)
