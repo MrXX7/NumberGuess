@@ -76,6 +76,25 @@ func feedbackCircles(feedback: [Color], guessedNumbers: [Int]) -> some View {
     }
 }
 
+func generateUniqueCode() -> String {
+        var code = ""
+        var counts: [Character: Int] = [:]
+
+        while code.count < 4 {
+            let randomNumber = Int.random(in: 0..<10)
+            let randomCharacter = Character("\(randomNumber)")
+            
+            counts[randomCharacter, default: 0] += 1
+            
+            if counts[randomCharacter, default: 0] <= 2 {
+                code.append(randomCharacter)
+            }
+        }
+
+        return code
+    }
+
+
 struct CustomButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label

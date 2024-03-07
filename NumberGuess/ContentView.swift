@@ -10,7 +10,9 @@ import SwiftUI
 struct ContentView: View {
     @State private var guess = ""
     @State private var feedback = [Color.gray, Color.gray, Color.gray, Color.gray]
-    @State private var target = String(format: "%04d", Int.random(in: 0..<10000))
+    @State private var target = generateUniqueCode()
+    
+//    String(format: "%04d", Int.random(in: 0..<10000))
     @State private var remainingAttempts = 6
     
     var body: some View {
