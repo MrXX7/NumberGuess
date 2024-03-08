@@ -32,27 +32,24 @@ struct ContentView: View {
                 
                 HStack(spacing: 100) {
                     Button("Guess") {
-                        if remainingAttempts > 0 { // Sadece 0'dan büyükse tahmin yapılabilir
+                        if remainingAttempts > 0 {
                             withAnimation {
                                 checkGuess(guess: guess, target: target, feedback: &feedback)
                                 remainingAttempts -= 1
                             }
                         }
                     }
+                    
+                    .buttonStyle(CustomButtonStyle())
+                    
+                    Button(remainingAttempts == 0 || feedback.allSatisfy({ $0 == Color.green }) ? "Again" : "Reset") {
+                        withAnimation {
+                            if remainingAttempts == 0 || feedback.allSatisfy({ $0 == Color.green }) {
+                                resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
+                            } }}
 
                     .buttonStyle(CustomButtonStyle())
                     
-                    Button(remainingAttempts == 0 ? "Again" : "Reset") {
-                        withAnimation {
-                            if remainingAttempts == 0 {
-                                resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
-                            } else {
-                                resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
-                            }
-                        }
-                    }
-                    .buttonStyle(CustomButtonStyle())
-
                 }
                 .padding(.top, 20)
                 

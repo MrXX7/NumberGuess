@@ -99,8 +99,10 @@ struct CustomButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding()
-            .foregroundColor(.black)
-            .background(configuration.isPressed ? Color.gray : Color.yellow) // Altın rengi (gold)
+            .foregroundColor(.white)
+            .background(LinearGradient(gradient: Gradient(colors: [Color.purple, Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing))
             .cornerRadius(10)
+            .shadow(color: .gray, radius: configuration.isPressed ? 3 : 5, x: 0, y: configuration.isPressed ? 2 : 3)
     }
 }
+

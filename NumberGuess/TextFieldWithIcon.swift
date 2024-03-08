@@ -40,7 +40,6 @@ struct TextFieldWithIcon: View {
                         }
                     
                     Button(action: {
-                        // Metni sıfırla
                         guess = ""
                     }) {
                         Image(systemName: "xmark.circle.fill")
