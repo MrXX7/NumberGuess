@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD2999692B9B4EE700EB02D3 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2999682B9B4EE700EB02D3 /* StatusView.swift */; };
 		ADDE53692B8EB52B003B2F63 /* NumberGuessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDE53682B8EB52B003B2F63 /* NumberGuessApp.swift */; };
 		ADDE536B2B8EB52B003B2F63 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDE536A2B8EB52B003B2F63 /* ContentView.swift */; };
 		ADDE536D2B8EB52E003B2F63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADDE536C2B8EB52E003B2F63 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD2999682B9B4EE700EB02D3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		ADDE53652B8EB52B003B2F63 /* NumberGuess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumberGuess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADDE53682B8EB52B003B2F63 /* NumberGuessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberGuessApp.swift; sourceTree = "<group>"; };
 		ADDE536A2B8EB52B003B2F63 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				ADDE53682B8EB52B003B2F63 /* NumberGuessApp.swift */,
 				ADDE536A2B8EB52B003B2F63 /* ContentView.swift */,
+				AD2999682B9B4EE700EB02D3 /* StatusView.swift */,
 				ADF907402B911B2B00AF0D8E /* GameFunctions.swift */,
 				ADF907422B911F4400AF0D8E /* TextFieldWithIcon.swift */,
 				ADDE536C2B8EB52E003B2F63 /* Assets.xcassets */,
@@ -149,6 +152,7 @@
 				ADDE536B2B8EB52B003B2F63 /* ContentView.swift in Sources */,
 				ADDE53692B8EB52B003B2F63 /* NumberGuessApp.swift in Sources */,
 				ADF907412B911B2B00AF0D8E /* GameFunctions.swift in Sources */,
+				AD2999692B9B4EE700EB02D3 /* StatusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

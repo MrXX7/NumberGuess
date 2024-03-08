@@ -22,33 +22,7 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 
-                if feedback.allSatisfy({ $0 == Color.green }) {
-                    Text("Code cracked! 🎉")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding(.top, 20)
-                        .opacity(showCongratulations ? 1 : 0)
-                        .scaleEffect(showCongratulations ? 1 : 0.1)
-                        .animation(.easeInOut(duration: 1))
-                        .onAppear {
-                            withAnimation {
-                                showCongratulations.toggle()
-                            }
-                        }
-                } else if remainingAttempts == 0 {
-                    Text("You've used all your attempts. The correct answer was \(target).")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding(.top, 20)
-                } else {
-                    Text("Crack the Code:")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.top, 50)
-                }
-                
-                
+                StatusView(feedback: $feedback, showCongratulations: $showCongratulations, remainingAttempts: $remainingAttempts, target: target)
                 
                 feedbackCircles(feedback: feedback, guessedNumbers: Array(guess).compactMap { Int(String($0)) })
                 
@@ -74,10 +48,29 @@ struct ContentView: View {
                 }
                 .padding(.top, 20)
                 
-                Text("Chances Left: \(remainingAttempts)")
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .padding(.top, 20)
+//                Text("Chances Left: \(remainingAttempts)")
+//                    .font(.title)
+//                    .foregroundColor(.white)
+//                    .padding(.top, 20)
+                
+                if feedback.allSatisfy({ $0 == Color.green }) {
+                    Button("New") {
+                        resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
+                    } .buttonStyle(CustomButtonStyle())
+                }
+                
+                else if remainingAttempts == 0 {
+                    Button("New") {
+                        resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
+                    } .buttonStyle(CustomButtonStyle())
+                }
+                
+                else {
+                    Text("Chances Left: \(remainingAttempts)")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .padding(.top, 20)
+                } 
                 
                 Spacer()
                 
