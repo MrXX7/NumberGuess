@@ -20,7 +20,7 @@ struct TextFieldWithIcon: View {
                     .padding(.leading, 1)
                 
                 HStack {
-                    TextField("Enter your guess", text: $guess)
+                    TextField("Enter code", text: $guess)
                         .font(.title2)
                         .foregroundColor(.black)
                         .padding(.vertical, 8)

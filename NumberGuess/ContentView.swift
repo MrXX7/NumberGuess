@@ -32,49 +32,36 @@ struct ContentView: View {
                 
                 HStack(spacing: 100) {
                     Button("Guess") {
-                        withAnimation {
-                            checkGuess(guess: guess, target: target, feedback: &feedback)
-                            remainingAttempts -= 1
+                        if remainingAttempts > 0 { // Sadece 0'dan büyükse tahmin yapılabilir
+                            withAnimation {
+                                checkGuess(guess: guess, target: target, feedback: &feedback)
+                                remainingAttempts -= 1
+                            }
                         }
                     }
+
                     .buttonStyle(CustomButtonStyle())
                     
-                    Button("Reset") {
+                    Button(remainingAttempts == 0 ? "Again" : "Reset") {
                         withAnimation {
-                            resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
+                            if remainingAttempts == 0 {
+                                resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
+                            } else {
+                                resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
+                            }
                         }
                     }
                     .buttonStyle(CustomButtonStyle())
+
                 }
                 .padding(.top, 20)
                 
-//                Text("Chances Left: \(remainingAttempts)")
-//                    .font(.title)
-//                    .foregroundColor(.white)
-//                    .padding(.top, 20)
-                
-                if feedback.allSatisfy({ $0 == Color.green }) {
-                    Button("New") {
-                        resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
-                    } .buttonStyle(CustomButtonStyle())
-                }
-                
-                else if remainingAttempts == 0 {
-                    Button("New") {
-                        resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
-                    } .buttonStyle(CustomButtonStyle())
-                }
-                
-                else {
-                    Text("Chances Left: \(remainingAttempts)")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding(.top, 20)
-                } 
+                Text("Chances Left: \(remainingAttempts)")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
                 
                 Spacer()
-                
-                
                 
                 Text("© 2024 by Oncu Can. All rights reserved.")
                     .font(.footnote)
