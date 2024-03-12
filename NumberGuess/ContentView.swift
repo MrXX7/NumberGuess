@@ -44,12 +44,10 @@ struct ContentView: View {
                     
                     Button(remainingAttempts == 0 || feedback.allSatisfy({ $0 == Color.green }) ? "Again" : "Reset") {
                         withAnimation {
-                            if remainingAttempts == 0 || feedback.allSatisfy({ $0 == Color.green }) {
-                                resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
-                            } }}
-
+                            resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
+                        }
+                    }
                     .buttonStyle(CustomButtonStyle())
-                    
                 }
                 .padding(.top, 20)
                 
