@@ -100,7 +100,29 @@ struct CustomButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .foregroundColor(.white)
-            .background(LinearGradient(gradient: Gradient(colors: [Color.purple, Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing))
+            .background(LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.8), Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing))
+            .cornerRadius(10)
+            .shadow(color: .gray, radius: configuration.isPressed ? 3 : 5, x: 0, y: configuration.isPressed ? 2 : 3)
+    }
+}
+
+struct CustomButtonStyleTwo: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .padding()
+            .foregroundColor(.white)
+            .background(LinearGradient(gradient: Gradient(colors: [Color.teal, Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing))
+            .cornerRadius(10)
+            .shadow(color: .gray, radius: configuration.isPressed ? 3 : 5, x: 0, y: configuration.isPressed ? 2 : 3)
+    }
+}
+
+struct CustomButtonStyleThird: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .padding()
+            .foregroundColor(.white)
+            .background(LinearGradient(gradient: Gradient(colors: [Color.mint, Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing))
             .cornerRadius(10)
             .shadow(color: .gray, radius: configuration.isPressed ? 3 : 5, x: 0, y: configuration.isPressed ? 2 : 3)
     }

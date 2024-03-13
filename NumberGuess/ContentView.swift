@@ -16,7 +16,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.purple, Color.black]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [Color.mint, Color.black]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -26,10 +26,11 @@ struct ContentView: View {
                 
                 feedbackCircles(feedback: feedback, guessedNumbers: Array(guess).compactMap { Int(String($0)) })
                 
-                TextFieldWithIcon(guess: $guess, feedback: $feedback)
-                    .frame(width: UIScreen.main.bounds.width * 0.65)
-                    .padding(.top, 10)
-                
+//                TextFieldWithIcon(guess: $guess, feedback: $feedback)
+//                    .frame(width: UIScreen.main.bounds.width * 0.65)
+//                    .padding(.top, 10)
+//                
+                NumberPadView(guess: $guess, feedback: $feedback)
                 HStack(spacing: 100) {
                     Button("Guess") {
                         if remainingAttempts > 0 {
@@ -40,14 +41,14 @@ struct ContentView: View {
                         }
                     }
                     
-                    .buttonStyle(CustomButtonStyle())
+                    .buttonStyle(CustomButtonStyleThird())
                     
                     Button(remainingAttempts == 0 || feedback.allSatisfy({ $0 == Color.green }) ? "Again" : "Reset") {
                         withAnimation {
                             resetGame(guess: &guess, feedback: &feedback, target: &target, remainingAttempts: &remainingAttempts)
                         }
                     }
-                    .buttonStyle(CustomButtonStyle())
+                    .buttonStyle(CustomButtonStyleThird())
                 }
                 .padding(.top, 20)
                 
