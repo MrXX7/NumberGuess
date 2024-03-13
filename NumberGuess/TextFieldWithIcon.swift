@@ -24,18 +24,17 @@ struct TextFieldWithIcon: View {
                         .font(.title2)
                         .foregroundColor(.black)
                         .padding(.vertical, 8)
-                        .keyboardType(.numberPad) // Klavye sadece rakam tuşlarını içerecek şekilde ayarlandı
+                        .keyboardType(.numberPad)
                         .onChange(of: guess) { newValue in
-                            // Tahmin yapılmadan önce geri bildirimi sıfırla
+                            
                             feedback = Array(repeating: .gray, count: 4)
                             
-                            // Eğer girilen metnin uzunluğu 5 veya daha fazlaysa, son karakteri kaldır
+                            
                             if newValue.count >= 5 {
                                 guess = String(newValue.dropLast())
                             }
                         }
                         .onTapGesture {
-                            // Herhangi bir yere dokunulduğunda klavye kapanacak
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         }
                     
