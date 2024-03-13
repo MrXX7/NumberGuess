@@ -64,6 +64,7 @@ struct NumberButton: View {
     let number: String
     @Binding var guess: String
     @Binding var feedback: [Color]
+    @State private var isPressed = false
 
     var body: some View {
         Button(action: {
@@ -72,12 +73,26 @@ struct NumberButton: View {
             } else {
                 self.guess += self.number
             }
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
         }) {
             Text(number)
                 .font(.title)
                 .foregroundColor(.white)
                 .frame(width: 30, height: 30)
+                .scaleEffect(isPressed ? 0.8 : 1.0)
         }
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged({ _ in
+                    self.isPressed = true
+                })
+                .onEnded({ _ in
+                    self.isPressed = false
+                })
+        )
     }
 }
+
+
 

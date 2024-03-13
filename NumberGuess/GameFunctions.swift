@@ -61,12 +61,12 @@ func feedbackCircles(feedback: [Color], guessedNumbers: [Int]) -> some View {
     HStack {
         ForEach(feedback.indices, id: \.self) { index in
             let color = feedback[index]
-            let number = guessedNumbers.indices.contains(index) ? guessedNumbers[index] : nil // Eğer girilen numaraların indeksi mevcut ise, numarayı al. Yoksa nil yap.
+            let number = guessedNumbers.indices.contains(index) ? guessedNumbers[index] : nil
             
             RoundedRectangle(cornerRadius: 10)
-                .fill(color != .gray ? color : color.opacity(0.3)) // Gri olan renklerin arka planı saydam olacak
+                .fill(color != .gray ? color : color.opacity(0.5))
                 .overlay(
-                    Text(number != nil ? String(number!) : "") // Eğer numara mevcutsa, hücreye numarayı yaz. Değilse boş bırak.
+                    Text(number != nil ? String(number!) : "")
                         .foregroundColor(.white)
                         .font(.largeTitle)
                 )
@@ -92,7 +92,6 @@ func generateUniqueCode() -> String {
 
     return code
 }
-
 
 
 struct CustomButtonStyle: ButtonStyle {

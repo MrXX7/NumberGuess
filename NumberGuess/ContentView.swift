@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var target = generateUniqueCode()
     @State private var remainingAttempts = 6
     @State private var showCongratulations = false
+    @State private var isPressed = false
     
     var body: some View {
         ZStack {
@@ -32,13 +33,13 @@ struct ContentView: View {
 //                
                 NumberPadView(guess: $guess, feedback: $feedback)
                 HStack(spacing: 100) {
-                    Button("Guess") {
+                    Button("Guess"){
                         if remainingAttempts > 0 {
                             withAnimation {
                                 checkGuess(guess: guess, target: target, feedback: &feedback)
                                 remainingAttempts -= 1
-                            }
-                        }
+                            } 
+                        } 
                     }
                     
                     .buttonStyle(CustomButtonStyleThird())
