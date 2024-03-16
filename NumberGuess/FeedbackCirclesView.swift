@@ -17,7 +17,7 @@ struct FeedbackCirclesView: View {
                 let color = feedback[index]
                 let number = guessedNumbers.indices.contains(index) ? guessedNumbers[index] : nil
 
-                Rectangle()
+                RoundedRectangle(cornerRadius: 10)
                     .fill(color != .gray ? color : color.opacity(0.5))
                     .overlay(
                         Text(number != nil ? String(number!) : "")

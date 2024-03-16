@@ -25,8 +25,11 @@ struct ContentView: View {
                 
                 StatusView(feedback: $feedback, showCongratulations: $showCongratulations, remainingAttempts: $remainingAttempts, target: target)
                 
-                feedbackCircles(feedback: feedback, guessedNumbers: Array(guess).compactMap { Int(String($0)) })
-
+                let guessedNumbersArray = guess.compactMap { Int(String($0)) }
+                let guessedNumbersBinding = Binding.constant(guessedNumbersArray)
+                
+                FeedbackCirclesView(feedback: $feedback, guessedNumbers: guessedNumbersBinding)
+                
                 NumberPadView(guess: $guess, feedback: $feedback)
                 HStack(spacing: 100) {
                     Button("Guess"){
@@ -34,8 +37,8 @@ struct ContentView: View {
                             withAnimation {
                                 checkGuess(guess: guess, target: target, feedback: &feedback)
                                 remainingAttempts -= 1
-                            } 
-                        } 
+                            }
+                        }
                     }
                     
                     .buttonStyle(CustomButtonStyleThird())
