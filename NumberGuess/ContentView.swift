@@ -26,11 +26,7 @@ struct ContentView: View {
                 StatusView(feedback: $feedback, showCongratulations: $showCongratulations, remainingAttempts: $remainingAttempts, target: target)
                 
                 feedbackCircles(feedback: feedback, guessedNumbers: Array(guess).compactMap { Int(String($0)) })
-                
-//                TextFieldWithIcon(guess: $guess, feedback: $feedback)
-//                    .frame(width: UIScreen.main.bounds.width * 0.65)
-//                    .padding(.top, 10)
-//                
+
                 NumberPadView(guess: $guess, feedback: $feedback)
                 HStack(spacing: 100) {
                     Button("Guess"){
