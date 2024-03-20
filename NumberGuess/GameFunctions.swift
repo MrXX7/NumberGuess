@@ -80,10 +80,16 @@ func generateUniqueCode() -> String {
     var code = ""
     var counts: [Character: Int] = [:]
 
+    // İlk hane 1 ile 9 arasında rastgele bir sayı olacak
+    let firstDigit = Int.random(in: 1..<10)
+    code.append(Character("\(firstDigit)"))
+    counts[Character("\(firstDigit)"), default: 0] += 1
+
+    // Diğer 3 hane rastgele rakamlar olacak, tekrar etmeyecekler
     while code.count < 4 {
         let randomNumber = Int.random(in: 0..<10)
         let randomCharacter = Character("\(randomNumber)")
-        
+
         if counts[randomCharacter, default: 0] < 2 {
             code.append(randomCharacter)
             counts[randomCharacter, default: 0] += 1
@@ -92,6 +98,7 @@ func generateUniqueCode() -> String {
 
     return code
 }
+
 
 
 struct CustomButtonStyle: ButtonStyle {

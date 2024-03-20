@@ -28,9 +28,10 @@ struct ContentView: View {
                 let guessedNumbersArray = guess.compactMap { Int(String($0)) }
                 let guessedNumbersBinding = Binding.constant(guessedNumbersArray)
                 
-                FeedbackCirclesView(feedback: $feedback, guessedNumbers: guessedNumbersBinding)
+                FeedbackCirclesView(feedback: $feedback, guessedNumbers: guessedNumbersBinding, guess: $guess)
                 
                 NumberPadView(guess: $guess, feedback: $feedback)
+                
                 HStack(spacing: 100) {
                     Button("Guess"){
                         if remainingAttempts > 0 {
