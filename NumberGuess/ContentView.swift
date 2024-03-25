@@ -32,8 +32,8 @@ struct ContentView: View {
                 
                 NumberPadView(guess: $guess, feedback: $feedback)
                 
-                HStack(spacing: 100) {
-                    Button("Guess"){
+                HStack(spacing: 88) {
+                    Button("Try Now"){
                         if remainingAttempts > 0 {
                             withAnimation {
                                 checkGuess(guess: guess, target: target, feedback: &feedback)
@@ -51,7 +51,7 @@ struct ContentView: View {
                     }
                     .buttonStyle(CustomButtonStyleThird())
                 }
-                .padding(.top, 20)
+                .padding(.top, 1)
                 
                 Text("Chances Left: \(remainingAttempts)")
                     .font(.title)

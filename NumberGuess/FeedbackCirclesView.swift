@@ -37,9 +37,7 @@ struct FeedbackCirclesView: View {
     }
     
     func updateFeedback() {
-        // feedback dizisini, guessedNumbers dizisine göre güncelleyelim
         self.feedback = self.guessedNumbers.map { number in
-            // Eğer rakam 0 ise şeffaf bir renk kullanalım, aksi halde renk belirleyelim
             return Color.clear
         }
     }

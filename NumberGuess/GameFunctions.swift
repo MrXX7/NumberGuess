@@ -17,8 +17,8 @@ func resetGame(guess: inout String, feedback: inout [Color], target: inout Strin
 func checkGuess(guess: String, target: String, feedback: inout [Color]) {
     var reds = 0
     var yellows = 0
-    var yellowIndices: [Int] = [] // Sarıya dönüştürülen rakamların dizini
-    var correctIndices: [Int] = [] // Doğru konumda olan rakamların dizini
+    var yellowIndices: [Int] = []
+    var correctIndices: [Int] = [] 
     let guessArray = Array(guess)
     let targetArray = Array(target)
     
@@ -32,7 +32,7 @@ func checkGuess(guess: String, target: String, feedback: inout [Color]) {
     
     for i in 0..<4 {
         if guessArray[i] != targetArray[i] && targetArray.contains(guessArray[i]) {
-            // Rakam doğru konumda işaretlenmiş mi kontrol et
+            
             let correctIndex = targetArray.firstIndex(of: guessArray[i])!
             if !correctIndices.contains(correctIndex) && !yellowIndices.contains(i) {
                 yellows += 1
@@ -42,14 +42,12 @@ func checkGuess(guess: String, target: String, feedback: inout [Color]) {
         }
     }
     
-    // Doğru konumda olmayan ve hedefte bulunmayan her rakamı kırmızıya dönüştür
     for i in 0..<4 {
         if !correctIndices.contains(i) && !targetArray.contains(guessArray[i]) {
             feedback[i] = Color.red
         }
     }
     
-    // Tahmin yapılmadan önce geri bildirimi sıfırla
     if guessArray.count < 4 {
         feedback = Array(repeating: .gray, count: 4)
     }
@@ -80,12 +78,10 @@ func generateUniqueCode() -> String {
     var code = ""
     var counts: [Character: Int] = [:]
 
-    // İlk hane 1 ile 9 arasında rastgele bir sayı olacak
     let firstDigit = Int.random(in: 1..<10)
     code.append(Character("\(firstDigit)"))
     counts[Character("\(firstDigit)"), default: 0] += 1
 
-    // Diğer 3 hane rastgele rakamlar olacak, tekrar etmeyecekler
     while code.count < 4 {
         let randomNumber = Int.random(in: 0..<10)
         let randomCharacter = Character("\(randomNumber)")

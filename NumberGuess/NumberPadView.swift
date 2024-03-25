@@ -48,7 +48,7 @@ struct NumberPadView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(width: 127)
-                        .background(LinearGradient(gradient: Gradient(colors: [Color.black, Color.teal]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.mint, Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing))
                         .cornerRadius(10)
                 }
             }
