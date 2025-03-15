@@ -11,51 +11,64 @@ struct NumberPadView: View {
     @Binding var guess: String
     @Binding var feedback: [Color]
 
+    // Constants for customization
+    private let buttonSpacing: CGFloat = 2
+    private let rowSpacing: CGFloat = 4
+    private let buttonWidth: CGFloat = 80
+    private let buttonHeight: CGFloat = 80
+    private let clearButtonWidth: CGFloat = 127
+
+    // Number pad layout
+    private let numberPadRows = [
+        ["1", "2", "3", "4"],
+        ["5", "6", "7", "8"],
+        ["9", "0"]
+    ]
+
     var body: some View {
-        VStack(spacing: 4) {
-            HStack(spacing: 2) {
-                NumberButton(number: "1", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                NumberButton(number: "2", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                NumberButton(number: "3", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                NumberButton(number: "4", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-            }
-            HStack(spacing: 2) {
-                NumberButton(number: "5", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                NumberButton(number: "6", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                NumberButton(number: "7", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                NumberButton(number: "8", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-            }
-            HStack(spacing: 2) {
-                NumberButton(number: "9", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                NumberButton(number: "0", guess: $guess, feedback: $feedback)
-                    .buttonStyle(CustomButtonStyleTwo())
-                Button(action: {
-                    feedback = Array(repeating: .gray, count: 4)
-                    guess = ""
-                }) {
-                    Text("Clear")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .frame(width: 127)
-                        .background(LinearGradient(gradient: Gradient(colors: [Color.mint, Color.black]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .cornerRadius(10)
+        VStack(spacing: rowSpacing) {
+            ForEach(numberPadRows, id: \.self) { row in
+                HStack(spacing: buttonSpacing) {
+                    ForEach(row, id: \.self) { number in
+                        NumberButton(number: number, guess: $guess, feedback: $feedback)
+                            .buttonStyle(CustomButtonStyleTwo())
+                            .frame(width: buttonWidth, height: buttonHeight)
+                    }
+
+                    // Add Clear button to the last row
+                    if row == numberPadRows.last {
+                        clearButton
+                    }
                 }
             }
         }
         .padding()
         .background(Color.clear)
         .cornerRadius(10)
+    }
+
+    // MARK: - Clear Button
+    private var clearButton: some View {
+        Button(action: clearInput) {
+            Text("Clear")
+                .font(.title)
+                .foregroundColor(.white)
+                .frame(width: clearButtonWidth, height: buttonHeight)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.mint, Color.black]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .cornerRadius(10)
+        }
+    }
+
+    // MARK: - Clear Input Action
+    private func clearInput() {
+        feedback = Array(repeating: .gray, count: 4)
+        guess = ""
     }
 }
 
