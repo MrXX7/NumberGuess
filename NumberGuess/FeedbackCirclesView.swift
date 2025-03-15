@@ -12,33 +12,48 @@ struct FeedbackCirclesView: View {
     @Binding var guessedNumbers: [Int]
     @Binding var guess: String
     
+    // Constants for customization
+    private let circleSize: CGFloat = 50
+    private let cornerRadius: CGFloat = 10
+    private let padding: CGFloat = 5
+    private let fontSize: Font = .largeTitle
+    
     var body: some View {
-        HStack {
+        HStack(spacing: padding) {
             ForEach(feedback.indices, id: \.self) { index in
-                let color = feedback[index]
-                let number = guessedNumbers.indices.contains(index) ? guessedNumbers[index] : nil
-                
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(color != .gray ? color : color.opacity(0.5))
-                    .overlay(
-                        Text(number != nil ? String(number!) : "")
-                            .foregroundColor(.white)
-                            .font(.largeTitle)
-                    )
-                    .frame(width: 50, height: 50)
-                    .padding(5)
-                    .onTapGesture {
-                        let tappedIndex = index
-                        guessedNumbers[tappedIndex] = 0
-                        guess = ""
-                    }
+                feedbackCircle(for: index)
             }
         }
     }
     
+    // MARK: - Feedback Circle
+    private func feedbackCircle(for index: Int) -> some View {
+        let color = feedback[index]
+        let number = guessedNumbers.indices.contains(index) ? guessedNumbers[index] : nil
+        
+        return RoundedRectangle(cornerRadius: cornerRadius)
+            .fill(color != .gray ? color : color.opacity(0.5))
+            .overlay(
+                Text(number != nil ? String(number!) : "")
+                    .foregroundColor(.white)
+                    .font(fontSize)
+            )
+            .frame(width: circleSize, height: circleSize)
+            .onTapGesture {
+                handleTap(at: index)
+            }
+    }
+    
+    // MARK: - Handle Tap Gesture
+    private func handleTap(at index: Int) {
+        guessedNumbers[index] = 0 // Reset the guessed number
+        guess = "" // Clear the guess input
+    }
+    
+    // MARK: - Update Feedback
     func updateFeedback() {
-        self.feedback = self.guessedNumbers.map { number in
-            return Color.clear
+        feedback = guessedNumbers.map { _ in
+            Color.clear // Reset feedback colors
         }
     }
 }
