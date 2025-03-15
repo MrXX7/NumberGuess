@@ -12,17 +12,20 @@ struct NumberPadView: View {
     @Binding var feedback: [Color]
 
     // Constants for customization
-    private let buttonSpacing: CGFloat = 2
-    private let rowSpacing: CGFloat = 4
+    private let buttonSpacing: CGFloat = 10
+    private let rowSpacing: CGFloat = 10
     private let buttonWidth: CGFloat = 80
     private let buttonHeight: CGFloat = 80
-    private let clearButtonWidth: CGFloat = 127
+    private let clearButtonWidth: CGFloat = 170
+    private let cornerRadius: CGFloat = 15
+    private let shadowRadius: CGFloat = 5
 
     // Number pad layout
     private let numberPadRows = [
-        ["1", "2", "3", "4"],
-        ["5", "6", "7", "8"],
-        ["9", "0"]
+        ["1", "2", "3"],
+        ["4", "5", "6"],
+        ["7", "8", "9"],
+        ["0"]
     ]
 
     var body: some View {
@@ -31,7 +34,7 @@ struct NumberPadView: View {
                 HStack(spacing: buttonSpacing) {
                     ForEach(row, id: \.self) { number in
                         NumberButton(number: number, guess: $guess, feedback: $feedback)
-                            .buttonStyle(CustomButtonStyleTwo())
+                            .buttonStyle(ModernButtonStyle())
                             .frame(width: buttonWidth, height: buttonHeight)
                     }
 
@@ -44,24 +47,26 @@ struct NumberPadView: View {
         }
         .padding()
         .background(Color.clear)
-        .cornerRadius(10)
+        .cornerRadius(cornerRadius)
     }
 
     // MARK: - Clear Button
     private var clearButton: some View {
         Button(action: clearInput) {
             Text("Clear")
-                .font(.title)
+                .font(.title2)
+                .fontWeight(.semibold)
                 .foregroundColor(.white)
                 .frame(width: clearButtonWidth, height: buttonHeight)
                 .background(
                     LinearGradient(
-                        gradient: Gradient(colors: [Color.mint, Color.black]),
+                        gradient: Gradient(colors: [Color.mint, Color.blue]),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
                 )
-                .cornerRadius(10)
+                .cornerRadius(cornerRadius)
+                .shadow(color: .black.opacity(0.3), radius: shadowRadius, x: 0, y: 5)
         }
     }
 
@@ -69,6 +74,28 @@ struct NumberPadView: View {
     private func clearInput() {
         feedback = Array(repeating: .gray, count: 4)
         guess = ""
+    }
+}
+
+// MARK: - Modern Button Style
+struct ModernButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.blue, Color.purple]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(15)
+            .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.2), value: configuration.isPressed)
     }
 }
 
